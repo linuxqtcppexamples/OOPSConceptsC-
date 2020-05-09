@@ -30,6 +30,13 @@ public:
 
 	}
 
+	//Member functions
+
+	/** Function Name: addElement
+	* Usage: //Add an element to the set object. If the element is already in the set object, then DO NOT add it.
+	*/
+	
+
 	void addElement(T data)
 	{
 		bool isAlreadyExists = false;
@@ -52,7 +59,11 @@ public:
 		nNoOfItemsInArray++;
 	}
 
-	template<typename  T> bool removeElement(T data)
+	/*Function : removeElement
+	* Usage    : Return false only if the element is not in the set object. Otherwise, remove that element from the set
+     object and then return true.
+	*/
+    bool removeElement(T data)
 	{
 		if (aSetsArray.empty())
 		{
@@ -92,6 +103,10 @@ public:
 		return bState;
 	}
 
+	//Opearator Overloading
+	/*Functioname : operator +
+	 *Usage: Return the union of the left set and the right set
+	 */
 	Set operator + (Set const& obj) {
 		Set res;
 		/*res.aSetsArray = this.aSetsArray;
@@ -118,6 +133,9 @@ public:
 		return res;
 	}
 
+	/*Functioname : operator -
+	 *Usage: Return the difference of the left set from the right set
+	 */
 	friend Set operator - (Set const& obj1, Set const& obj2) {
 		
 		bool bState = false;
@@ -153,6 +171,11 @@ public:
 		return res;
 	}
 
+	/*Functioname : operator==
+	 *Usage: Compare the two sets and return true if they are the same. Otherwise, return false. Note that two sets
+			 are equal if every element of one set is also the element of the other regardless of the internal order
+			 of elements in their representation.
+	 */
 	friend bool operator == (Set const& obj1, Set const& obj2) {
 
 		bool bState = false;
@@ -186,6 +209,9 @@ public:
 		return bState;
 	}
 
+	/*Functioname : operator!=
+	 *Usage: Compare the two sets and return true if they are not the same. Otherwise, return false
+	 */
 	friend bool operator != (Set const& obj1, Set const& obj2) {
 
 		bool bState = false;
@@ -218,13 +244,20 @@ public:
 
 		return !bState;
 	}
-
+	/*Functioname : operator= (or) assignment operator
+	 *Usage: Copy the contents of the right set to the left set. After this operation, both sets should have only the
+			  elements of the right set.
+	 */
 	void operator = (const Set const& obj) {
 		
 		std::copy(std::begin(obj.aSetsArray), std::end(obj.aSetsArray), std::begin(this->aSetsArray));
 		this->nNoOfItemsInArray = obj.nNoOfItemsInArray;
 	}
 
+	/*Functioname : operator +=
+	 *Usage: Perform the union of two sets and store the result in set which is at the left hand side of the equality.
+			 Also return the union of the two sets.
+	 */
 	friend void operator += (Set &obj1, Set & obj2) {
 
 
@@ -255,33 +288,10 @@ public:
 		
 	}
 
-	//Set operator += (Set const& obj) {
-	//	Set res;
-	//	/*res.aSetsArray = this.aSetsArray;
-	//	res.nNoOfItemsInArray = this.aSetsArray;*/
 
-	//	for (int nIndex = res.nNoOfItemsInArray; nIndex < this->nNoOfItemsInArray; nIndex++)
-	//	{
-	//		if (res.nNoOfItemsInArray < res.aSetsArray.size())
-	//		{
-	//			res.aSetsArray[res.nNoOfItemsInArray] = this->aSetsArray[nIndex];
-	//			res.nNoOfItemsInArray++;
-	//		}
-	//	}
-
-	//	for (int nIndex = obj.nNoOfItemsInArray; nIndex < obj.nNoOfItemsInArray; nIndex++)
-	//	{
-	//		if (res.nNoOfItemsInArray < res.aSetsArray.size())
-	//		{
-	//			res.aSetsArray[res.nNoOfItemsInArray] = obj.aSetsArray[nIndex];
-	//			res.nNoOfItemsInArray++;
-	//		}
-	//	}
-
-	//	return res;
-	//}
-
-
+	/*Functioname : operator <
+	 *Usage:Return true only if the set on the left is a subset of the set on the right. Otherwise, return false
+	 */
 	friend bool operator < (Set const& obj1, Set const& obj2) 
 	{
 
@@ -296,7 +306,9 @@ public:
 
 	}
 
-
+	/*Functioname : operator << (or) insertion
+	 *Usage:Output the contents of the set
+	 */
 
 	friend ostream& operator<<(ostream& os, const Set& obj)
 	{
@@ -315,6 +327,9 @@ public:
 		return os;
 	}
 
+	/*Functioname : operator >> (or) extraction
+	 *Usage:Output the contents of the set
+	 */
 	friend istream& operator>>(istream& input, Set& obj) {
 
 		for (int nCount = obj.nNoOfItemsInArray; nCount < obj.aSetsArray.size(); nCount++)
@@ -329,11 +344,15 @@ public:
 		return input;
 	}
 
+// Private Acess specifier member variables
 
 private:
+
+	// Array with defailt 10 element size
 	array<T, 10> aSetsArray;
-	int nArraySize = 10;
+	//Number items filled in the array
 	int nNoOfItemsInArray=0;
+	//Element type  and T is datatype
 	T element;
 };
 
